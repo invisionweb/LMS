@@ -123,4 +123,9 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'RAZORPAY_WEBHOOK_SECRET' => env('RAZORPAY_WEBHOOK_SECRET'),
+    'RAZORPAY_KEY' => env('RAZORPAY_KEY'),
+    'RAZORPAY_SECRET' => env('RAZORPAY_SECRET'),
+
+    'ADMIN_EMAIL' => env('ADMIN_EMAIL'),
 ];
