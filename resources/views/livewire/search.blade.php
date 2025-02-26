@@ -1,7 +1,7 @@
 <div class="max-w-md lg:min-w-96">
     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     <div class="relative">
-        <div class="flex px-4 py-3 rounded-md border border-indigo-500 overflow-hidden max-w-md mx-auto font-[sans-serif]">
+        <div class="flex px-4 py-3 rounded-full border border-indigo-500 border-4 overflow-hidden max-w-md mx-auto font-[sans-serif]">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904" width="16px"
                  class="fill-gray-600 mr-3 rotate-90">
                 <path

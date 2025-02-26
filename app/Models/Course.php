@@ -17,6 +17,7 @@ class Course extends Model
         'description',
         'thumbnail',
         'price',
+        'striked_price',
         'subject_id'
     ];
 

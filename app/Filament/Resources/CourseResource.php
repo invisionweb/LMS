@@ -73,6 +73,11 @@ class CourseResource extends Resource
                             ->columnSpan(2),*/
 
                         Forms\Components\TextInput::make('price')
+                            ->required()
+                            ->numeric()
+                            ->columnSpan(2),
+
+                        Forms\Components\TextInput::make('striked_price')
                             //->required()
                             ->numeric()
                             ->columnSpan(2),
@@ -84,7 +89,7 @@ class CourseResource extends Resource
                     ->multiple()
                     ->preload()
                     ->required()
-                ->columnSpan(2),
+                    ->columnSpan(2),
 
                 /* Repeater::make('chapters')
                             ->addActionLabel('Add new chapter')

@@ -4,27 +4,47 @@
     <div class="bg-white py-16">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center mb-10">
-                <h2 class="text-3xl font-bold text-indigo-600 sm:text-4xl font-serif">All the skills you need in one place
+                <h2 class="text-3xl font-bold text-indigo-600 sm:text-4xl font-serif">All the skills you need in one
+                    place
                 </h2>
-                <p class="mt-2 text-lg leading-8 text-gray-600">From critical skills to technical topics, Educult supports your professional development.</p>
+                <p class="mt-2 text-lg leading-8 text-gray-600">From critical skills to technical topics, Educult
+                    supports your professional development.</p>
+
+                {{-- <div class="flex justify-center space-x-4 mt-5">
+                    <span
+                        class="inline-block bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-4 py-2 rounded-full">Computer
+                        Science</span>
+                    <span
+                        class="inline-block bg-green-100 text-green-800 text-sm font-medium mr-2 px-4 py-2 rounded-full">History</span>
+                    <span
+                        class="inline-block bg-red-100 text-red-800 text-sm font-medium mr-2 px-4 py-2 rounded-full">Personality
+                        Development</span>
+                    <span
+                        class="inline-block bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-4 py-2 rounded-full">Dance</span>
+                    <span
+                        class="inline-block bg-purple-100 text-purple-800 text-sm font-medium mr-2 px-4 py-2 rounded-full">History</span>
+                </div> --}}
             </div>
 
             <div class="border-b pb-6">
                 <nav class="flex flex-row flex-wrap gap-6 justify-center">
                     @foreach ($subjects as $subject)
-                        <p class="whitespace-nowrap text-sm font-medium text-gray-500 border border-gray-200 px-3 py-1 rounded-2xl">
+                        <span
+                            class="inline-block bg-green-100 text-green-800 text-sm font-medium mr-2 px-4 py-2 rounded-full">{{ $subject }}</span>
+                        {{-- <p
+                            class="whitespace-nowrap text-sm font-medium text-gray-500 border border-gray-200 px-3 py-1 rounded-2xl">
                             {{ $subject }}
-                        </p>
+                        </p> --}}
                     @endforeach
                 </nav>
             </div>
 
             <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-4">
-                @foreach($courses as $course)
-
+                @foreach ($courses as $course)
                     <div class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white">
                         <div class="aspect-h-4 aspect-w-3 bg-gray-200 sm:aspect-none group-hover:opacity-75 sm:h-96">
-                            <img src="{{ asset('/storage/' . $course->thumbnail) }}" alt="{{ $course->name }}" class="h-full w-full object-cover object-center sm:h-full sm:w-full">
+                            <img src="{{ asset('/storage/' . $course->thumbnail) }}" alt="{{ $course->name }}"
+                                class="h-full w-full object-cover object-center sm:h-full sm:w-full">
                         </div>
                         <div class="flex flex-1 flex-col space-y-2 p-4">
                             <h3 class="text-sm font-bold text-gray-900">
@@ -38,30 +58,52 @@
                             </div>
 
                             <div class="flex flex-1 flex-col justify-end">
-                                <p class="text-sm text-gray-400">Published {{ $course->updated_at->diffForHumans() }}</p>
-                                @if($course->price) <p class="text-base font-medium text-gray-900 mt-2">₹ {{ $course->price }}</p> @endif
+                                <p class="text-sm text-gray-400 mb-4">Published
+                                    {{ $course->updated_at->diffForHumans() }}
+                                </p>
+                                @if ($course->price)
+                                    @if ($course->striked_price)
+                                        <div class="flex gap-2 items-center">
+                                            <h3 class="text-2xl text-green-600 font-bold">₹
+                                                {{ $course->price }}</h3>
+                                            <h3 class="text-xl text-red-500 line-through">₹
+                                                {{ $course->striked_price }}
+
+                                            </h3>
+                                        </div>
+                                    @else
+                                        <h3 class="text-2xl font-bold">₹ {{ $course->price }}</h3>
+                                    @endif
+
+                                    {{-- <p class="text-base font-medium text-gray-900 mt-2">₹ {{ $course->price }}</p> --}}
+                                @endif
                             </div>
                         </div>
                     </div>
 
                     <article class="flex flex-col items-start justify-between hidden">
                         <div class="relative w-full">
-                            <img src="{{ asset('/storage/' . $course->thumbnail) }}" alt="" class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+                            <img src="{{ asset('/storage/' . $course->thumbnail) }}" alt=""
+                                class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
                             <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
                         </div>
                         <div class="max-w-xl">
                             <div class="mt-8 flex items-center gap-x-4 text-xs">
-                                <time datetime="2020-03-16" class="text-gray-500">{{ $course->updated_at->diffForHumans() }}</time>
-                                <a href="#" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">{{ $course->related_subject }}</a>
+                                <time datetime="2020-03-16"
+                                    class="text-gray-500">{{ $course->updated_at->diffForHumans() }}</time>
+                                <a href="#"
+                                    class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">{{ $course->related_subject }}</a>
                             </div>
                             <div class="group relative">
-                                <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                                <h3
+                                    class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
                                     <a href="#">
                                         <span class="absolute inset-0"></span>
                                         {{ $course->name }}
                                     </a>
                                 </h3>
-                                <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">{{ $course->description }}</p>
+                                <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">{{ $course->description }}
+                                </p>
                                 <h5 class="font-semibold">₹499</h5>
                             </div>
                             <!--
@@ -85,5 +127,4 @@
             </div>
         </div>
     </div>
-
 </div>
