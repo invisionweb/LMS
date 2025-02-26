@@ -4,7 +4,6 @@
         <nav class="border-b flex flex-row justify-between items-center py-3 px-6">
             <div>
                 <a href="{{ route('welcome') }}">
-                    <span class="sr-only">Your Company</span>
                     {{-- @include('filament.app.logo') --}}
                     <img class="h-8 ml-2" src="{{ asset('/images/logo.webp') }}">
                 </a>
