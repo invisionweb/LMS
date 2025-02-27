@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CourseResource\Pages;
+use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Subject;
 use Filament\Forms;
@@ -82,30 +83,44 @@ class CourseResource extends Resource
                             ->numeric()
                             ->columnSpan(2),
                     ]),
-                Forms\Components\Select::make('related_chapters')
-                    ->label("Add chapters to course")
-                    ->relationship('related_chapters', 'name')
-                    //->relationship()
-                    ->multiple()
-                    ->preload()
-                    ->required()
-                    ->columnSpan(2),
+                // Forms\Components\Select::make('related_chapters')
+                //     ->label("Add chapters to course")
+                //     ->relationship('related_chapters', 'name')
+                //     //->relationship()
+                //     ->multiple()
+                //     ->preload()
+                //     ->required()
+                //     ->columnSpan(2),
 
-                /* Repeater::make('chapters')
+                Section::make()
+                    ->schema([
+                        Repeater::make('chapters')
+                            ->label("Add chapters to course")
+                            ->relationship()
                             ->addActionLabel('Add new chapter')
-                            ->hiddenLabel(true)
+                            // ->hiddenLabel(true)
+                            ->reorderable()
                             ->simple(
+                                // Forms\Components\Select::make('chapter_id')
+                                //     ->relationship('related_chapters', 'name')
+                                //     ->placeholder('Search and add chapters by name')
+                                //     ->searchable()
+                                //     ->required()
+                                //     ->preload()
+                                //     ->hiddenLabel(true),
                                 Forms\Components\Select::make('chapter_id')
-                                    ->relationship('related_chapters', 'name')
+                                    ->options(Chapter::all()->pluck('name', 'id'))
                                     ->placeholder('Search and add chapters by name')
                                     ->searchable()
                                     ->required()
+                                    ->label('Add chapter')
                                     ->preload()
-                                    ->hiddenLabel(true),
+                                // ->hiddenLabel(true),
                             )
-                            ->defaultItems(2)
-                            ->reorderableWithButtons()
-                            ->grid(1),*/
+                            ->minItems(1)
+                            ->orderColumn('order')
+                            ->grid(1),
+                    ]),
             ]);
     }
 

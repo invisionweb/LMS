@@ -9,7 +9,9 @@
                 </a>
             </div>
             <div class="flex flex-row items-center space-x-4">
-                <livewire:search></livewire:search>
+                <div class="hidden md:flex">
+                    <livewire:search></livewire:search>
+                </div>
                 @guest
                     <a href="{{ route('filament.account.auth.login') }}"
                         class="text-sm font-semibold leading-6 text-gray-900">Log in <span

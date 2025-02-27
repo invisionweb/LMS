@@ -55,13 +55,16 @@
 
         {{-- tailwind ui nav end --}}
 
-        <div class="py-2 gap-4 flex justify-center items-center bg-slate-50">
-            <h1 class="text-4xl py-4 font-bold text-blue-700 sm:text-4xl font-sans-serif tracking-tight">A new
-                way of online learning.</h1>
-        </div>
-        <div class="py-2 gap-4 flex justify-center items-center bg-slate-50">
-            <h3 class="font-medium">Explore our courses</h1>
+        <div class="bg-purple-100">
+            <div class="py-2 gap-4 flex justify-center items-cente">
+                <h1
+                    class="px-2 sm:px-0 text-center sm:text-left text-2xl md:text-4xl py-4 font-bold text-blue-700 sm:text-4xl font-serif tracking-tight">
+                    A new way of online learning.</h1>
+            </div>
+            <div class="pb-6 gap-4 flex justify-center items-center">
+                {{-- <h3 class="font-medium">Explore our courses</h1> --}}
                 <livewire:search></livewire:search>
+            </div>
         </div>
 
 
@@ -108,24 +111,23 @@
 
         <div class="relative">
             <div class="mx-auto max-w-7xl">
-                <div class="relative z-10 pt-14 lg:w-full lg:max-w-2xl">
-
-                    <div class="relative px-6 py-32 sm:py-40 lg:px-8 lg:py-28 lg:pr-0">
+                <div class="relative z-10 sm:pt-14 lg:w-full lg:max-w-2xl">
+                    <div class="relative px-6 py-6 sm:py-40 lg:px-8 lg:py-28 lg:pr-0">
                         <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
 
-                            <h1 class="text-4xl font-bold text-green-500 sm:text-6xl font-sans-serif tracking-tight">
+                            <h1 class="text-4xl font-bold text-green-500 sm:text-6xl font-serif tracking-tight">
                                 The All-in-One Skill Development Platform</h1>
-                            <p class="mt-6 text-lg leading-8 text-gray-600 font-serif">From critical skills to
+                            <p class="mt-6 text-lg leading-8 text-gray-600 font-sans-serif">From critical skills to
                                 technical
                                 topics, We support your professional development.</p>
                             <div class="hidden sm:mb-10 sm:flex mt-4">
                                 <div
                                     class="relative rounded-full border-2 px-3 py-2 text-md leading-6 text-gray-500 ring-1 ring-indigo-900/10 hover:ring-gray-900/20">
                                     Check out our latest courses.
-                                    {{-- <a href="{{ route('courses') }}"
+                                    <a href="{{ route('courses') }}"
                                         class="whitespace-nowrap font-semibold text-indigo-600"><span
                                             class="absolute inset-0" aria-hidden="true"></span>Know more <span
-                                            aria-hidden="true">&rarr;</span></a> --}}
+                                            aria-hidden="true">&rarr;</span></a>
                                 </div>
                             </div>
 
@@ -158,7 +160,7 @@
                 <div class="lg:pr-8 lg:pt-4">
                     <div class="lg:max-w-lg">
                         <h2 class="text-base font-semibold leading-7 text-indigo-600">Smart learning</h2>
-                        <p class="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">A
+                        <p class="mt-2 text-4xl font-semibold text-gray-900 sm:text-5xl font-serif">A
                             better way</p>
                         <p class="mt-6 text-lg leading-8 text-gray-600">A user-friendly e-learning platform offering
                             diverse courses, interactive content, and flexible learning schedules. Learn at your own

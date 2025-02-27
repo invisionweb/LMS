@@ -28,13 +28,13 @@ class Course extends Model
 
     public function related_chapters(): BelongsToMany
     {
-        return $this->belongsToMany(Chapter::class, 'chapter_course', 'course_id', 'chapter_id')->withTimestamps();
+        return $this->belongsToMany(Chapter::class, 'chapter_course', 'course_id', 'chapter_id')->withTimestamps()->orderBy('order');
         //return $this->belongsToMany(Chapter::class)->withTimestamps();
     }
 
-    public function chapterCourses(): HasMany
+    public function chapters(): HasMany
     {
-        return $this->hasMany(ChapterCourse::class);
+        return $this->hasMany(ChapterCourse::class)->orderBy('order');
     }
 
     public function payments(): HasMany

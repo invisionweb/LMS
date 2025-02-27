@@ -7,11 +7,11 @@
 
     <div class="bg-white py-16">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="mx-auto max-w-3xl text-center mb-10">
-                <h2 class="text-3xl font-bold text-indigo-600 sm:text-4xl font-serif">All the skills you need in one
-                    place
+            <div class="mx-auto max-w-3xl text-center mb-5">
+                <h2 class="text-3xl font-bold font-serif text-indigo-600 md:text-4xl">
+                    All the skills you need in one place
                 </h2>
-                <p class="mt-2 text-lg leading-8 text-gray-600">From critical skills to technical topics, Educult
+                <p class="mt-2 text-lg leading-8 text-gray-500">From critical skills to technical topics, Eduk
                     supports your professional development.</p>
 
                 {{-- <div class="flex justify-center space-x-4 mt-5">
@@ -31,10 +31,10 @@
             </div>
 
             <div class="border-b pb-6">
-                <nav class="flex flex-row flex-wrap gap-6 justify-center">
+                <nav class="flex flex-row flex-wrap gap-3 justify-center">
                     @foreach ($subjects as $subject)
                         <span
-                            class="inline-block bg-green-100 text-green-800 text-sm font-medium mr-2 px-4 py-2 rounded-full">{{ $subject }}</span>
+                            class="inline-block border text-green-600 text-sm font-medium mr-2 px-4 py-2 rounded-full">{{ $subject }}</span>
                         {{-- <p
                             class="whitespace-nowrap text-sm font-medium text-gray-500 border border-gray-200 px-3 py-1 rounded-2xl">
                             {{ $subject }}
@@ -46,9 +46,9 @@
             <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-4">
                 @foreach ($courses as $course)
                     <div class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white">
-                        <div class="aspect-h-4 aspect-w-3 bg-gray-200 sm:aspect-none group-hover:opacity-75 sm:h-96">
+                        <div class="aspect-h-4 aspect-w-3 bg-gray-200 sm:aspect-none group-hover:opacity-75">
                             <img src="{{ asset('/storage/' . $course->thumbnail) }}" alt="{{ $course->name }}"
-                                class="h-full w-full object-cover object-center sm:h-full sm:w-full">
+                                class="w-full object-cover object-center sm:w-full">
                         </div>
                         <div class="flex flex-1 flex-col space-y-2 p-4">
                             <h3 class="text-sm font-bold text-gray-900">
