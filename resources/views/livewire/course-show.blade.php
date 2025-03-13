@@ -1,5 +1,13 @@
 <div class="min-h-full">
 
+    @push('meta_description')
+        <meta property="og:site_name" content="{{ config('app.name', '') }}" />
+        <meta property="og:title" content="{{ $course->name }} | {{ config('app.name', '') }}" />
+        <meta property="og:description" content="{{ $course->description }}" />
+        <meta property="og:url" content="{{ route('course.show', [$course->id, $chapter->id]) }}" />
+        <meta property="og:image" content="{{ asset('/storage/' . $course->thumbnail) }}" />
+    @endpush
+
     <header>
         <nav class="border-b flex flex-row justify-between items-center py-3 px-6">
             <div>

@@ -5,6 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    @include('components.meta')
+
+    @push('meta_description')
+        <meta property="og:site_name" content="{{ config('app.name', '') }}" />
+        <meta property="og:title" content="{{ config('app.name', '') }} | Easy learning" />
+        <meta property="og:description" content="Learn with us by learning from amazing tutorials" />
+        <meta property="og:url" content="{{ config('app.url', 'eduk.in') }}" />
+        <meta property="og:image" content="{{ asset('/images/logo.webp') }}" />
+        <meta property="og:type" content="website" />
+        <meta name="description" content="Eduk | Easy learning" />
+    @endpush
+
     <title>{{ config('app.name') }}</title>
     <link rel="icon" href="{{ asset('/images/favicon.webp') }}">
 
