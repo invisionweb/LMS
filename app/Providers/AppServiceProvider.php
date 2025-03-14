@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use Filament\Http\Responses\Auth\Contracts\LogoutResponse;
+use Filament\Http\Responses\Auth\Contracts\RegistrationResponse;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             LogoutResponse::class,
             \App\Http\Responses\LogoutResponse::class
+        );
+
+        $this->app->singleton(
+            RegistrationResponse::class,
+            \App\Http\Responses\RegisterResponse::class
         );
     }
 
