@@ -34,6 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->profile()
             ->passwordReset()
             ->emailVerification()
+            ->brandLogo(fn () => view('components.filament-logo'))
             ->colors([
                 'primary' => Color::Blue,
             ])
