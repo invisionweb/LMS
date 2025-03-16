@@ -51,7 +51,7 @@
                                 class="w-full object-cover object-center sm:w-full">
                         </div>
                         <div class="flex flex-1 flex-col space-y-2 p-4">
-                            <h3 class="text-sm font-bold text-gray-900">
+                            <h3 class="text-lg font-bold text-gray-900">
                                 <a href="{{ route('course.show', $course->id) }}">
                                     <span aria-hidden="true" class="absolute inset-0"></span>
                                     {{ $course->name }}

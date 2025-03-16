@@ -11,10 +11,11 @@
     <header>
         <nav class="border-b flex flex-row justify-between items-center py-3 px-6">
             <div>
-                <a href="{{ route('welcome') }}">
-                    {{-- @include('filament.app.logo') --}}
+                {{-- <a href="{{ route('welcome') }}">
+                    @include('filament.app.logo')
                     <img class="h-8 ml-2" src="{{ asset('/images/logo.webp') }}">
-                </a>
+                </a> --}}
+                @include('components.filament-logo')
             </div>
             <div class="flex flex-row items-center space-x-4">
                 <div class="hidden md:flex">
@@ -46,12 +47,13 @@
                         <section aria-labelledby="section-1-title">
                             <h2 class="sr-only" id="section-1-title">Chapter</h2>
                             <div class="overflow-hidden rounded-lg bg-white shadow">
-                                <!-- Your content -->
 
                                 @if ($chapter)
                                     {!! $chapter->video_iframe !!}
-                                    <div class="p-6">
-                                        <h1 class="py-4 text-green-600 font-semibold text-2xl">{{ $chapter->name }}</h1>
+                                    <div class="px-4 p-6">
+                                        <h1 class="py-0 sm:py-4 text-green-600 font-semibold text-2xl">
+                                            {{ $chapter->name }}
+                                        </h1>
                                         <div class="prose text-sm">{!! str($chapter->description)->sanitizeHtml() !!}</div>
                                     </div>
                                 @else
@@ -77,111 +79,116 @@
                                     </div>
                                 @endif
 
-                                <ul role="list" class="space-y-6 px-6">
+                                {{-- comment display desktop --}}
+                                <div class="hidden lg:block">
+                                    <h2 class="p-4 text-lg font-semibold bg-indigo-50 mt-3 mb-10 border-b-2">Comments</h2>
 
-                                    @foreach ($comments as $chapter_comment)
-                                        <li class="relative flex gap-x-4">
-                                            {{-- <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
-                                            <div class="w-px bg-gray-200"></div>
-                                        </div> --}}
-                                            {{-- <x-filament::avatar
-                                            src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                            alt=""
-                                            size="sm"
-                                        />
-                                        <img
-                                            src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                            alt="" class="relative mt-3 h-6 w-6 flex-none rounded-full bg-gray-50"> --}}
-                                            <div class="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200">
-                                                <div class="flex justify-between gap-x-4">
-                                                    <div class="py-0.5 text-xs leading-5 text-gray-500"><span
-                                                            class="font-medium text-gray-900">{{ $chapter_comment->user->name }}</span>
-                                                        commented
+                                    <ul role="list" class="space-y-6 px-6">
+
+                                        @foreach ($comments as $chapter_comment)
+                                            <li class="relative flex gap-x-4">
+                                                {{-- <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
+                                                <div class="w-px bg-gray-200"></div>
+                                            </div> --}}
+                                                {{-- <x-filament::avatar
+                                                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                alt=""
+                                                size="sm"
+                                            />
+                                            <img
+                                                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                alt="" class="relative mt-3 h-6 w-6 flex-none rounded-full bg-gray-50"> --}}
+                                                <div class="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200">
+                                                    <div class="flex justify-between gap-x-4">
+                                                        <div class="py-0.5 text-xs leading-5 text-gray-500"><span
+                                                                class="font-medium text-gray-900">{{ $chapter_comment->user->name }}</span>
+                                                            commented
+                                                        </div>
+                                                        <time datetime="{{ $chapter_comment->updated_at }}"
+                                                            class="flex-none py-0.5 text-xs leading-5 text-gray-500">
+                                                            {{ $chapter_comment->updated_at->diffForHumans() }}
+                                                        </time>
                                                     </div>
-                                                    <time datetime="{{ $chapter_comment->updated_at }}"
-                                                        class="flex-none py-0.5 text-xs leading-5 text-gray-500">
-                                                        {{ $chapter_comment->updated_at->diffForHumans() }}
-                                                    </time>
+                                                    <p class="text-sm leading-6 text-gray-500">
+                                                        {{ $chapter_comment->comment }}</p>
+                                                    @if ($chapter_comment->user_id == \Illuminate\Support\Facades\Auth::id())
+                                                        <button class="mt-2"
+                                                            wire:confirm="Do you want to delete this comment?"
+                                                            wire:click="delete_comment({{ $chapter_comment }})">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24" stroke-width="1.5"
+                                                                stroke="currentColor" class="size-4">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                            </svg>
+                                                        </button>
+                                                    @endif
                                                 </div>
-                                                <p class="text-sm leading-6 text-gray-500">
-                                                    {{ $chapter_comment->comment }}</p>
-                                                @if ($chapter_comment->user_id == \Illuminate\Support\Facades\Auth::id())
-                                                    <button class="mt-2"
-                                                        wire:confirm="Do you want to delete this comment?"
-                                                        wire:click="delete_comment({{ $chapter_comment }})">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                            class="size-4">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                                        </svg>
+                                            </li>
+                                        @endforeach
+
+                                    </ul>
+
+                                    <!-- New comment form -->
+                                    @if ($chapter)
+                                        <div class="mt-6 flex gap-x-3 p-6">
+                                            {{-- <img
+                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="" class="h-6 w-6 flex-none rounded-full bg-gray-50"> --}}
+                                            <form wire:submit="post_comment" class="relative flex-auto">
+                                                <div
+                                                    class="overflow-hidden rounded-lg pb-12 ring-1 ring-inset ring-gray-200 focus-within:ring-2 focus-within:ring-indigo-600">
+                                                    <textarea rows="3" wire:model="comment"
+                                                        class="p-3 block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 outline-none"
+                                                        placeholder="Add your comment..."></textarea>
+                                                </div>
+
+                                                <div class="absolute inset-x-0 bottom-0 flex justify-between p-3">
+                                                    <button type="submit"
+                                                        class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                                        Comment
                                                     </button>
-                                                @endif
-                                            </div>
-                                        </li>
-                                    @endforeach
+                                                </div>
+                                            </form>
+                                        </div>
+                                    @endif
 
-                                </ul>
-
-                                <!-- New comment form -->
-                                @if ($chapter)
-                                    <div class="mt-6 flex gap-x-3 p-6">
-                                        {{-- <img
-                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt="" class="h-6 w-6 flex-none rounded-full bg-gray-50"> --}}
-                                        <form wire:submit="post_comment" class="relative flex-auto">
-                                            <div
-                                                class="overflow-hidden rounded-lg pb-12 ring-1 ring-inset ring-gray-200 focus-within:ring-2 focus-within:ring-indigo-600">
-                                                <textarea rows="3" wire:model="comment"
-                                                    class="p-3 block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 outline-none"
-                                                    placeholder="Add your comment..."></textarea>
-                                            </div>
-
-                                            <div class="absolute inset-x-0 bottom-0 flex justify-between p-3">
-                                                <button type="submit"
-                                                    class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                                                    Comment
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                @endif
-
-                                @error('comment')
-                                    <div class="rounded-md bg-blue-50 p-4">
-                                        <div class="flex">
-                                            <div class="flex-shrink-0">
-                                                <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor"
-                                                    aria-hidden="true">
-                                                    <path fill-rule="evenodd"
-                                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </div>
-                                            <div class="ml-3 flex-1 md:flex md:justify-between">
-                                                <p class="text-sm text-blue-700">{{ $message }}</p>
+                                    @error('comment')
+                                        <div class="rounded-md bg-blue-50 p-4">
+                                            <div class="flex">
+                                                <div class="flex-shrink-0">
+                                                    <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20"
+                                                        fill="currentColor" aria-hidden="true">
+                                                        <path fill-rule="evenodd"
+                                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <div class="ml-3 flex-1 md:flex md:justify-between">
+                                                    <p class="text-sm text-blue-700">{{ $message }}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @enderror
+                                    @enderror
 
-                                @if (session()->has('message'))
-                                    <div class="rounded-md bg-green-50 p-4">
-                                        <div class="flex">
-                                            <div class="flex-shrink-0">
-                                                <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20"
-                                                    fill="currentColor" aria-hidden="true">
-                                                    <path fill-rule="evenodd"
-                                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </div>
-                                            <div class="ml-3 flex-1 md:flex md:justify-between">
-                                                <p class="text-sm text-green-700">{{ session('message') }}</p>
+                                    @if (session()->has('message'))
+                                        <div class="rounded-md bg-green-50 p-4">
+                                            <div class="flex">
+                                                <div class="flex-shrink-0">
+                                                    <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20"
+                                                        fill="currentColor" aria-hidden="true">
+                                                        <path fill-rule="evenodd"
+                                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <div class="ml-3 flex-1 md:flex md:justify-between">
+                                                    <p class="text-sm text-green-700">{{ session('message') }}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endif
+                                    @endif
+                                </div>
 
                             </div>
                         </section>
@@ -213,7 +220,6 @@
                         <h2 class="sr-only">Right-column</h2>
                         <div class="overflow-hidden rounded-lg bg-white shadow">
                             <div>
-                                <!-- Your content -->
                                 <img src="{{ asset('/storage/' . $course->thumbnail) }}" alt="{{ $course->name }}">
 
                                 <h2 class="px-3 py-3 text-xl font-semibold text-indigo-600 sm:text-2xl">
@@ -265,16 +271,133 @@
                                     <!-- <h1 class="mx-3">Please try again.</h1> -->
                                 </div>
 
-                                {{--  <h2 class="p-3 font-semibold bg-indigo-50 mt-3">Chapters</h2> --}}
-                                <ul>
-                                    @foreach ($course->related_chapters as $related_chapter)
-                                        <li>
-                                            <a href="{{ route('course.show', [$course->id, $related_chapter->id]) }}">
-                                                <p class="p-3 text-sm text-gray-700">{{ $related_chapter->name }}</p>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                {{-- course chapters list --}}
+                                <div>
+                                    <h2 class="p-4 text-lg font-semibold bg-indigo-50 mt-3 border-b-2">Course chapters
+                                    </h2>
+                                    <ul>
+                                        @foreach ($course->related_chapters as $related_chapter)
+                                            <li class="odd:bg-white even:bg-gray-50">
+                                                <a
+                                                    href="{{ route('course.show', [$course->id, $related_chapter->id]) }}">
+                                                    <p class="p-3 text-sm text-gray-700">{{ $related_chapter->name }}
+                                                    </p>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+
+                                {{-- comment display mobile --}}
+                                <div class="block lg:hidden">
+                                    <h2 class="p-4 text-lg font-semibold bg-indigo-50 mt-3 mb-10 border-b-2">Comments</h2>
+                                    <ul role="list" class="space-y-6 px-6">
+
+                                        @foreach ($comments as $chapter_comment)
+                                            <li class="relative flex gap-x-4">
+                                                {{-- <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
+                                                <div class="w-px bg-gray-200"></div>
+                                            </div> --}}
+                                                {{-- <x-filament::avatar
+                                                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                alt=""
+                                                size="sm"
+                                            />
+                                            <img
+                                                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                alt="" class="relative mt-3 h-6 w-6 flex-none rounded-full bg-gray-50"> --}}
+                                                <div class="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200">
+                                                    <div class="flex justify-between gap-x-4">
+                                                        <div class="py-0.5 text-xs leading-5 text-gray-500"><span
+                                                                class="font-medium text-gray-900">{{ $chapter_comment->user->name }}</span>
+                                                            commented
+                                                        </div>
+                                                        <time datetime="{{ $chapter_comment->updated_at }}"
+                                                            class="flex-none py-0.5 text-xs leading-5 text-gray-500">
+                                                            {{ $chapter_comment->updated_at->diffForHumans() }}
+                                                        </time>
+                                                    </div>
+                                                    <p class="text-sm leading-6 text-gray-500">
+                                                        {{ $chapter_comment->comment }}</p>
+                                                    @if ($chapter_comment->user_id == \Illuminate\Support\Facades\Auth::id())
+                                                        <button class="mt-2"
+                                                            wire:confirm="Do you want to delete this comment?"
+                                                            wire:click="delete_comment({{ $chapter_comment }})">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24" stroke-width="1.5"
+                                                                stroke="currentColor" class="size-4">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                            </svg>
+                                                        </button>
+                                                    @endif
+                                                </div>
+                                            </li>
+                                        @endforeach
+
+                                    </ul>
+
+                                    <!-- New comment form -->
+                                    @if ($chapter)
+                                        <div class="mt-6 flex gap-x-3 p-6">
+                                            {{-- <img
+                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="" class="h-6 w-6 flex-none rounded-full bg-gray-50"> --}}
+                                            <form wire:submit="post_comment" class="relative flex-auto">
+                                                <div
+                                                    class="overflow-hidden rounded-lg pb-12 ring-1 ring-inset ring-gray-200 focus-within:ring-2 focus-within:ring-indigo-600">
+                                                    <textarea rows="3" wire:model="comment"
+                                                        class="p-3 block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 outline-none"
+                                                        placeholder="Add your comment..."></textarea>
+                                                </div>
+
+                                                <div class="absolute inset-x-0 bottom-0 flex justify-between p-3">
+                                                    <button type="submit"
+                                                        class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                                        Comment
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    @endif
+
+                                    @error('comment')
+                                        <div class="rounded-md bg-blue-50 p-4">
+                                            <div class="flex">
+                                                <div class="flex-shrink-0">
+                                                    <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20"
+                                                        fill="currentColor" aria-hidden="true">
+                                                        <path fill-rule="evenodd"
+                                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <div class="ml-3 flex-1 md:flex md:justify-between">
+                                                    <p class="text-sm text-blue-700">{{ $message }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @enderror
+
+                                    @if (session()->has('message'))
+                                        <div class="rounded-md bg-green-50 p-4">
+                                            <div class="flex">
+                                                <div class="flex-shrink-0">
+                                                    <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20"
+                                                        fill="currentColor" aria-hidden="true">
+                                                        <path fill-rule="evenodd"
+                                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <div class="ml-3 flex-1 md:flex md:justify-between">
+                                                    <p class="text-sm text-green-700">{{ session('message') }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+
                             </div>
                         </div>
                     </section>

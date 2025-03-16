@@ -12,7 +12,7 @@
         <meta property="og:title" content="{{ config('app.name', '') }} | Easy learning" />
         <meta property="og:description" content="Learn with us by learning from amazing tutorials" />
         <meta property="og:url" content="{{ config('app.url', 'eduk.in') }}" />
-        <meta property="og:image" content="{{ asset('/images/logo.webp') }}" />
+        <meta property="og:image" content="{{ asset('/images/eduk-logo.png') }}" />
         <meta property="og:type" content="website" />
         <meta name="description" content="Eduk | Easy learning" />
     @endpush
@@ -83,13 +83,17 @@
 
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="{{ asset('images/homepage/sample thumbnail.jpeg') }}"
-                        alt=""></div>
-                <div class="swiper-slide"><img src="{{ asset('images/homepage/sample thumb 2.jpeg') }}" alt="">
+                <div class="swiper-slide"><img src="{{ asset('images/homepage/slider_1_1.jpeg') }}" alt="">
                 </div>
-                {{-- <div class="swiper-slide"><img
-                        src="https://img.freepik.com/free-vector/online-learning-landing-page-template_23-2148908467.jpg"
-                        alt=""></div> --}}
+                <div class="swiper-slide"><img src="{{ asset('images/homepage/slider_1_2.jpeg') }}" alt="">
+                </div>
+                <div class="swiper-slide"><img src="{{ asset('images/homepage/slider_1_3.jpeg') }}" alt="">
+                </div>
+                <div class="swiper-slide"><img src="{{ asset('images/homepage/slider_1_4.jpeg') }}" alt="">
+                </div>
+                <div class="swiper-slide"><img src="{{ asset('images/homepage/slider_1_5.jpeg') }}" alt="">
+                </div>
+
 
             </div>
             <div class="swiper-button-next"></div>
@@ -158,9 +162,7 @@
                 </div>
             </div>
             <div class="p-6 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-                {{-- <img class="object-cover" src="{{ asset('/images/undraw_learning-sketchingsh.svg') }}"
-                    alt=""> --}}
-                <img src="https://img.freepik.com/free-vector/learning-concept-illustration_114360-6186.jpg">
+                <img src="{{ asset('images/homepage/all_in_one.jpeg') }}">
             </div>
         </div>
     </div>
@@ -223,17 +225,14 @@
                         </dl>
                     </div>
                 </div>
-                {{-- <img src="{{ asset('/images/undraw_online-learning_tgmv.svg') }}"> --}}
+
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img
-                                src="https://img.freepik.com/free-vector/online-certification-illustration_23-2148575637.jpg"
+                        <div class="swiper-slide"><img src="{{ asset('images/homepage/slider_2_1.jpeg') }}"
                                 alt="Image 1"></div>
-                        <div class="swiper-slide"><img
-                                src="https://img.freepik.com/free-vector/flat-background-with-different-learning-elements_23-2147596298.jpg"
+                        <div class="swiper-slide"><img src="{{ asset('images/homepage/slider_2_2.jpeg') }}"
                                 alt="Image 2"></div>
-                        <div class="swiper-slide"><img
-                                src="https://img.freepik.com/free-vector/e-learning-interactions-illustration-concept_114360-23713.jpg"
+                        <div class="swiper-slide"><img src="{{ asset('images/homepage/slider_2_3.jpeg') }}"
                                 alt="Image 3"></div>
                     </div>
                     <div class="swiper-button-next"></div>
