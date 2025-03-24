@@ -11,6 +11,8 @@
     gtag('config', 'G-NYEVP23XX0');
 </script>
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1916636825941611" crossorigin="anonymous"></script>
+
 <footer class="bg-white">
     <div class="mx-auto max-w-7xl overflow-hidden px-6 py-10 lg:px-8">
         <nav class="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
