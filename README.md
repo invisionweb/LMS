@@ -1,6 +1,8 @@
 ## Learning management system 
 #### Made with Laravel + Filament + Tailwind CSS
 
+![LMS Dashboard](https://github.com/invisionweb/LMS/blob/main/LMS%20dashboard.png?raw=true)
+
 #### Features
 ```
 - Add course
